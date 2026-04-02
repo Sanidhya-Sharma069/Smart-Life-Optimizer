@@ -1,0 +1,148 @@
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+🚀 Smart Life Optimizer Backend online - Port 5001
+🤖 Smart Logic Analyzer ready for requests...
+ℹ️ No existing data file found, starting fresh.
+TypeError: fs.existsSync is not a function
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js:168:56
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:157:13)
+    at Route.dispatch (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:117:3)
+    at handle (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:435:11)
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:295:15
+    at processParams (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:582:12)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:291:5)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:53:5)
+TypeError: fs.existsSync is not a function
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js:168:56
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:157:13)
+    at Route.dispatch (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:117:3)
+    at handle (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:435:11)
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:295:15
+    at processParams (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:582:12)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:291:5)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:53:5)
+Error: Cannot find module '../encodings'
+Require stack:
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/types/json.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/lib/express.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.getCodec (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:65:15)
+    at Object.getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:128:30)
+    at getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:46:18)
+    at readStream (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:194:15)
+    at getRawBody (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:116:12)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:113:3)
+Error: Cannot find module '../encodings'
+Require stack:
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/types/json.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/lib/express.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.getCodec (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:65:15)
+    at Object.getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:128:30)
+    at getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:46:18)
+    at readStream (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:194:15)
+    at getRawBody (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:116:12)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:113:3)
+Error: Cannot find module '../encodings'
+Require stack:
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/types/json.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/lib/express.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.getCodec (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:65:15)
+    at Object.getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:128:30)
+    at getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:46:18)
+    at readStream (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:194:15)
+    at getRawBody (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:116:12)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:113:3)
+Error: Cannot find module '../encodings'
+Require stack:
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/types/json.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/lib/express.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.getCodec (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:65:15)
+    at Object.getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:128:30)
+    at getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:46:18)
+    at readStream (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:194:15)
+    at getRawBody (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:116:12)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:113:3)
+Error: Cannot find module '../encodings'
+Require stack:
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/types/json.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/lib/express.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/express/index.js
+- /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.getCodec (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:65:15)
+    at Object.getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/iconv-lite/lib/index.js:128:30)
+    at getDecoder (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:46:18)
+    at readStream (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:194:15)
+    at getRawBody (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/raw-body/index.js:116:12)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:113:3)
+TypeError: fs.existsSync is not a function
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js:168:56
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:157:13)
+    at Route.dispatch (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:117:3)
+    at handle (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:435:11)
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:295:15
+    at processParams (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:582:12)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:291:5)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:53:5)
+TypeError: fs.existsSync is not a function
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/server.js:168:56
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:157:13)
+    at Route.dispatch (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/route.js:117:3)
+    at handle (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:435:11)
+    at Layer.handleRequest (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/lib/layer.js:152:17)
+    at /Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:295:15
+    at processParams (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:582:12)
+    at next (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/router/index.js:291:5)
+    at read (/Users/sanidhyasharma/GitHub/Project/Project-/backend/node_modules/body-parser/lib/read.js:53:5)
