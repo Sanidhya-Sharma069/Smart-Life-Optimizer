@@ -11,7 +11,6 @@ const SettingsModule = lazy(() => import('./components/SettingsModule'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
 const AIAssistant = lazy(() => import('./components/AIAssistant'));
 
-import TerminalLog from './components/TerminalLog';
 import { playSoothingAlarmTone, playInterfaceClick } from './utils/audioEngine';
 
 // Loading Fallback Component
@@ -33,12 +32,12 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
     <div className={`app-container ${theme}-theme`}>
       <div className="mesh-bg"></div>
       {hudSettings.scanlines && <div className="hud-scanlines"></div>}
-      
+
       {/* Neural Mouse Trail */}
       {trail.map((pos, i) => (
-        <div key={i} className="mouse-trail" style={{ 
-          left: `${pos.x}px`, 
-          top: `${pos.y}px`, 
+        <div key={i} className="mouse-trail" style={{
+          left: `${pos.x}px`,
+          top: `${pos.y}px`,
           opacity: (trail.length - i) / trail.length * 0.5,
           transform: `scale(${(trail.length - i) / trail.length})`,
           transition: `all ${i * 0.05}s ease-out`
@@ -47,29 +46,29 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
 
       <div className="particles-container">
         {hudSettings.particles && [...Array(hudSettings.particleDensity)].map((_, i) => (
-          <div key={i} className="particle" style={{ 
-            left: `${Math.random() * 100}%`, 
+          <div key={i} className="particle" style={{
+            left: `${Math.random() * 100}%`,
             animationDelay: `${Math.random() * 5}s`,
             width: `${Math.random() * 4 + 2}px`,
             height: `${Math.random() * 4 + 2}px`
           }}></div>
         ))}
       </div>
-      
+
       {/* Interface Mode Switcher (Top Right) */}
-      <button 
-         onClick={() => {
-           setActiveTab('settings');
-           navigate('/settings');
-         }} 
-         className={`settings-mode-btn ${activeTab === 'settings' ? 'active' : ''}`}
+      <button
+        onClick={() => {
+          setActiveTab('settings');
+          navigate('/settings');
+        }}
+        className={`settings-mode-btn ${activeTab === 'settings' ? 'active' : ''}`}
       >
         <Settings size={18} className={activeTab === 'settings' ? 'spin' : ''} strokeWidth={2.5} />
         <span>{activeTab === 'settings' ? 'Settings Active' : 'Settings Mode'}</span>
       </button>
 
       {/* Mobile Hamburger Toggle */}
-      <button 
+      <button
         className="mobile-toggle"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >
@@ -80,13 +79,13 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
       <nav className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="brand" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src="/logo.png" alt="Smart Life Optimizer Logo" />
-          <span>Smart Life<br/><span className="brand-subtext">Optimizer</span></span>
+          <span>Smart Life<br /><span className="brand-subtext">Optimizer</span></span>
         </div>
 
         <div className="creator-signature">
-           <p className="mono">// creator</p>
-           <p className="name">Sanidhya Sharma</p>
-           <a href="mailto:sanidhyas015@gmail.com" className="email-tag">sanidhyas015@gmail.com</a>
+          <p className="mono">// creator</p>
+          <p className="name">Sanidhya Sharma</p>
+          <a href="mailto:sanidhyas015@gmail.com" className="email-tag">sanidhyas015@gmail.com</a>
         </div>
 
         <div className="nav-links">
@@ -103,14 +102,14 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
             <Heart size={20} /> Health Add-on
           </Link>
           <div className="accent-chooser">
-              {['#0ea5e9', '#a855f7', '#ec4899', '#10b981', '#f59e0b'].map(color => (
-                <div 
-                  key={color} 
-                  onClick={() => setAccentColor(color)} 
-                  className={`accent-dot ${accentColor === color ? 'accent-dot-active' : ''}`}
-                  style={{ background: color }} 
-                />
-              ))}
+            {['#0ea5e9', '#a855f7', '#ec4899', '#10b981', '#f59e0b'].map(color => (
+              <div
+                key={color}
+                onClick={() => setAccentColor(color)}
+                className={`accent-dot ${accentColor === color ? 'accent-dot-active' : ''}`}
+                style={{ background: color }}
+              />
+            ))}
           </div>
         </div>
 
@@ -125,7 +124,7 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
             </div>
           </Link>
         </div>
-        <TerminalLog />
+
       </nav>
 
       {/* Smart Alarm Full Screen Overlay */}
@@ -142,10 +141,10 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
 
       {/* Mind Distraction Overlay Notification */}
       {distractionAlert && (
-          <div className="distraction-alert">
-            <span>⚠️</span>
-            <span>Mind Wandering Detected! You switched contexts. Stay focused.</span>
-          </div>
+        <div className="distraction-alert">
+          <span>⚠️</span>
+          <span>Mind Wandering Detected! You switched contexts. Stay focused.</span>
+        </div>
       )}
 
       <Suspense fallback={<LoadingHUD />}>
@@ -157,7 +156,7 @@ const MainApp = ({ activeTab, setActiveTab, theme, setTheme, accentColor, setAcc
           <Route path="/settings" element={<SettingsModule theme={theme} setTheme={setTheme} hudSettings={hudSettings} setHudSettings={setHudSettings} />} />
         </Routes>
       </Suspense>
-      
+
       <Suspense fallback={null}>
         <AIAssistant />
       </Suspense>
@@ -171,7 +170,7 @@ function App() {
   const [alarmRinging, setAlarmRinging] = useState(false);
   const [accentColor, setAccentColor] = useState('#0ea5e9'); // Default blue
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   const [theme, setTheme] = useState('dark');
   const [hudSettings, setHudSettings] = useState({
     scanlines: true,
@@ -226,7 +225,7 @@ function App() {
     const handleMouseMove = (e) => {
       document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
-      
+
       setTrail(prev => {
         const newTrail = [...prev];
         newTrail.unshift({ x: e.clientX, y: e.clientY });
@@ -247,11 +246,11 @@ function App() {
         const currentHours = String(now.getHours()).padStart(2, '0');
         const currentMins = String(now.getMinutes()).padStart(2, '0');
         const currentTime = `${currentHours}:${currentMins}`;
-        
+
         if (currentTime === alarmStr) {
-           setAlarmRinging(true);
-           playSoothingAlarmTone();
-           localStorage.removeItem('smartAlarm'); // one-time execution
+          setAlarmRinging(true);
+          playSoothingAlarmTone();
+          localStorage.removeItem('smartAlarm'); // one-time execution
         }
       }
     }, 10000); // Check every 10 seconds
@@ -272,7 +271,7 @@ function App() {
 
   return (
     <Router>
-      <MainApp 
+      <MainApp
         activeTab={activeTab} setActiveTab={setActiveTab}
         theme={theme} setTheme={updateTheme}
         accentColor={accentColor} setAccentColor={setAccentColor}

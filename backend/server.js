@@ -15,7 +15,12 @@ const DATA_FILE = path.join(__dirname, 'userData.json');
 // In-memory data store for the MVP
 let userData = {
   sleep: { hours: 6.5, quality: 'Good' },
-  study: { sessions: 3, totalMinutes: 180, distractions: 2 },
+  study: {
+    sessions: 3,
+    totalMinutes: 180,
+    distractions: 2,
+    sessionsList: [] // Array to store individual study sessions
+  },
   health: { water: 4 },
   settings: {
     theme: 'dark',
@@ -41,7 +46,7 @@ const loadHistory = async () => {
     // Deep merge or at least ensure top-level keys exist
     userData = { ...userData, ...loadedData };
     console.log("✅ User data loaded and merged successfully.");
-  } catch(e) {
+  } catch (e) {
     if (e.code !== 'ENOENT') {
       console.error("❌ Failed to parse history data", e);
     } else {
@@ -93,22 +98,22 @@ app.get('/api/dashboard', (req, res) => {
   // ==== Usage Cycle & Time Utilization Logic ====
   // Find Peak Productivity vs Peak Distraction hours
   let maxDistractions = 0;
-  let worstHour = 14; 
+  let worstHour = 14;
   let bestHour = 9;
   let maxFocusTime = 0;
 
   userData.usageCycle.forEach(cycle => {
-     if (cycle.distractions > maxDistractions) {
-       maxDistractions = cycle.distractions;
-       worstHour = cycle.hour;
-     }
-     if (cycle.minutes > maxFocusTime && cycle.distractions <= 1) {
-       maxFocusTime = cycle.minutes;
-       bestHour = cycle.hour;
-     }
+    if (cycle.distractions > maxDistractions) {
+      maxDistractions = cycle.distractions;
+      worstHour = cycle.hour;
+    }
+    if (cycle.minutes > maxFocusTime && cycle.distractions <= 1) {
+      maxFocusTime = cycle.minutes;
+      bestHour = cycle.hour;
+    }
   });
 
-  const formatHour = (h) => h > 12 ? `${h-12} PM` : (h === 12 ? '12 PM' : `${h} AM`);
+  const formatHour = (h) => h > 12 ? `${h - 12} PM` : (h === 12 ? '12 PM' : `${h} AM`);
 
   lifestyleChanges.push({
     id: 101,
@@ -147,13 +152,65 @@ app.post('/api/log-study', async (req, res) => {
   userData.study.sessions++;
   userData.study.totalMinutes += req.body.minutes || 25;
   userData.study.distractions += req.body.distractions || 0;
-  
+
   // Log real usage cycle
   const currentHour = new Date().getHours();
   userData.usageCycle.push({ hour: currentHour, minutes: req.body.minutes || 25, distractions: req.body.distractions || 0 });
 
   await saveHistory();
   res.json({ message: 'Study log saved', data: userData.study });
+});
+
+// Study Sessions API
+app.get('/api/study/sessions', (req, res) => {
+  res.json({ data: userData.study.sessionsList || [] });
+});
+
+app.post('/api/study/sessions', async (req, res) => {
+  const sessionData = {
+    _id: Date.now().toString(), // Simple ID generation
+    date: req.body.date,
+    subject: req.body.subject,
+    duration: req.body.duration,
+    focusLevel: req.body.focusLevel,
+    topicsLearned: req.body.topicsLearned || '',
+    notes: req.body.notes || '',
+    difficulty: req.body.difficulty,
+    resources: req.body.resources || '',
+    createdAt: new Date().toISOString()
+  };
+
+  // Initialize sessionsList if it doesn't exist
+  if (!userData.study.sessionsList) {
+    userData.study.sessionsList = [];
+  }
+
+  userData.study.sessionsList.push(sessionData);
+
+  // Update aggregates
+  userData.study.sessions = userData.study.sessionsList.length;
+  userData.study.totalMinutes = userData.study.sessionsList.reduce((sum, s) => sum + s.duration, 0);
+
+  await saveHistory();
+  res.status(201).json({ message: 'Study session created', data: sessionData });
+});
+
+app.delete('/api/study/sessions/:id', async (req, res) => {
+  const sessionId = req.params.id;
+  const initialLength = userData.study.sessionsList.length;
+
+  userData.study.sessionsList = userData.study.sessionsList.filter(s => s._id !== sessionId);
+
+  if (userData.study.sessionsList.length < initialLength) {
+    // Update aggregates
+    userData.study.sessions = userData.study.sessionsList.length;
+    userData.study.totalMinutes = userData.study.sessionsList.reduce((sum, s) => sum + s.duration, 0);
+
+    await saveHistory();
+    res.json({ message: 'Session deleted successfully' });
+  } else {
+    res.status(404).json({ error: 'Session not found' });
+  }
 });
 
 // App Usage / Screen Time API Analyzer
@@ -185,13 +242,13 @@ app.post('/api/log-water', async (req, res) => {
 app.post('/api/chat', async (req, res) => {
   const text = req.body.text || req.body.message; // Support both field names
   if (!text) return res.status(400).json({ error: 'No message provided' });
-  
+
   const userMsg = { role: 'user', text };
-  
+
   // Rule-based AI Brain (Expansion point for real LLM API)
   const lower = text.toLowerCase();
   let response = "That's an excellent point. I recommend optimizing one clear digital habit today. Would you like to review your Screen Time stats?";
-  
+
   if (lower.includes('tired') || lower.includes('sleep') || lower.includes('energy')) {
     response = "If you're feeling drained, try aiming for a consistent sleep-wake schedule. Limiting heavy blue light 1 hour before bed enhances melatonin production by up to 30%. A 20-minute nap before 3 PM also resets your cognitive load.";
   } else if (lower.includes('distract') || lower.includes('focus') || lower.includes('phone')) {
