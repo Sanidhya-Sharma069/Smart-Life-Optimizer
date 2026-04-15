@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot } from 'lucide-react';
+import { chatAPI } from '../services/api';
 
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,15 +49,8 @@ const AIAssistant = () => {
     setIsTyping(true);
     
     try {
-      const response = await fetch('http://localhost:5001/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg })
-      });
-
-      if (!response.ok) throw new Error(`Server returned ${response.status}`);
-      
-      const data = await response.json();
+      const response = await chatAPI.sendMessage(userMsg);
+      const data = response.data;
       const replyText = data.aiMsg?.text || data.text || generateAIResponse(userMsg);
       setMessages(prev => [...prev, { role: 'ai', text: replyText }]);
     } catch (err) {

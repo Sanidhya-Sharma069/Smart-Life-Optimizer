@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Droplet, Eye, Activity, Monitor, Smartphone, Battery, BatteryCharging, Lock } from 'lucide-react';
+import { dashboardAPI, healthAPI } from '../services/api';
 
 const HealthModule = () => {
   const [healthData, setHealthData] = useState({ water: 0 });
@@ -9,14 +10,12 @@ const HealthModule = () => {
   const [eyeRestActive, setEyeRestActive]   = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/dashboard')
-      .then(res => res.json())
-      .then(data => setHealthData(data.data?.health || { water: 0 }))
+    dashboardAPI.getData()
+      .then(res => setHealthData(res.data.data?.health || { water: 0 }))
       .catch(err => console.error(err));
 
-    fetch('http://localhost:5001/api/screentime')
-      .then(res => res.json())
-      .then(data => setScreenTimeData(data))
+    healthAPI.getScreenTime()
+      .then(res => setScreenTimeData(res.data))
       .catch(err => console.error(err));
 
     // Mobile Device Battery Tracker
@@ -32,9 +31,8 @@ const HealthModule = () => {
   const formatTime = (mins) => `${Math.floor(mins / 60)}h ${mins % 60}m`;
 
   const logWater = () => {
-    fetch('http://localhost:5001/api/log-water', { method: 'POST' })
-      .then(r => r.json())
-      .then(d => setHealthData(prev => ({ ...prev, water: d.water })))
+    healthAPI.logWater()
+      .then(res => setHealthData(prev => ({ ...prev, water: res.data.water })))
       .catch(() => setHealthData(prev => ({ ...prev, water: prev.water + 1 })));
   };
 

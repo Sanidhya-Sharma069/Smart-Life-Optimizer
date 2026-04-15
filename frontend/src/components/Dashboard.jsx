@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BookOpen, Zap, Activity, ShieldAlert, Moon, Clock } from 'lucide-react';
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { playSmartAmbientMusic, stopSmartAmbientMusic, playInterfaceClick } from '../utils/audioEngine';
+import { dashboardAPI } from '../services/api';
 
 const Dashboard = ({ hudSettings }) => {
   const [dashboardData, setDashboardData] = React.useState(null);
@@ -22,9 +23,8 @@ const Dashboard = ({ hudSettings }) => {
   const formattedDate = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
   React.useEffect(() => {
-    fetch('http://localhost:5001/api/dashboard')
-      .then(res => res.json())
-      .then(data => setDashboardData(data))
+    dashboardAPI.getData()
+      .then(res => setDashboardData(res.data))
       .catch(err => console.error("Failed to fetch dashboard data", err));
 
     const positiveQuotes = [

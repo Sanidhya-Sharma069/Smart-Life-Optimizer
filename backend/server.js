@@ -14,7 +14,7 @@ const DATA_FILE = path.join(__dirname, 'userData.json');
 
 // In-memory data store for the MVP
 let userData = {
-  sleep: { hours: 6.5, quality: 'Good' },
+  sleep: { hours: 6.5, quality: 'good', sessionsList: [] },
   study: {
     sessions: 3,
     totalMinutes: 180,
@@ -143,9 +143,61 @@ app.get('/api/dashboard', (req, res) => {
 });
 
 app.post('/api/log-sleep', async (req, res) => {
-  userData.sleep = req.body;
+  userData.sleep = { ...userData.sleep, ...req.body };
   await saveHistory();
   res.json({ message: 'Sleep logged', data: userData.sleep });
+});
+
+// Sleep Sessions API
+app.get('/api/sleep/sessions', (req, res) => {
+  res.json({ data: userData.sleep.sessionsList || [] });
+});
+
+app.post('/api/sleep/sessions', async (req, res) => {
+  const sessionData = {
+    _id: Date.now().toString(),
+    ...req.body,
+    createdAt: new Date().toISOString()
+  };
+
+  if (!userData.sleep.sessionsList) {
+    userData.sleep.sessionsList = [];
+  }
+
+  userData.sleep.sessionsList.push(sessionData);
+
+  // Update aggregates based on the new session
+  const totalDuration = userData.sleep.sessionsList.reduce((sum, s) => sum + (s.duration || 0), 0);
+  userData.sleep.hours = parseFloat((totalDuration / 60 / userData.sleep.sessionsList.length).toFixed(1));
+  
+  if (sessionData.quality) {
+    userData.sleep.quality = sessionData.quality;
+  }
+
+  await saveHistory();
+  res.status(201).json({ message: 'Sleep session created', data: sessionData });
+});
+
+app.delete('/api/sleep/sessions/:id', async (req, res) => {
+  const sessionId = req.params.id;
+  
+  if (!userData.sleep.sessionsList) return res.status(404).json({ error: 'No sessions found' });
+
+  const initialLength = userData.sleep.sessionsList.length;
+  userData.sleep.sessionsList = userData.sleep.sessionsList.filter(s => s._id !== sessionId);
+
+  if (userData.sleep.sessionsList.length < initialLength) {
+    if (userData.sleep.sessionsList.length > 0) {
+      const totalDuration = userData.sleep.sessionsList.reduce((sum, s) => sum + (s.duration || 0), 0);
+      userData.sleep.hours = parseFloat((totalDuration / 60 / userData.sleep.sessionsList.length).toFixed(1));
+    } else {
+       userData.sleep.hours = 0;
+    }
+    await saveHistory();
+    res.json({ message: 'Session deleted successfully' });
+  } else {
+    res.status(404).json({ error: 'Session not found' });
+  }
 });
 
 app.post('/api/log-study', async (req, res) => {

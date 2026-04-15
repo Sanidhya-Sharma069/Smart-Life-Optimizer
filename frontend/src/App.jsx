@@ -4,13 +4,14 @@ import { Home, Moon, BookOpen, Activity, Heart, Zap, ShieldAlert, Settings, Menu
 import './index.css';
 
 // Lazy load modules for better performance
-const SleepModule = lazy(() => import('./components/SleepModule'));
-const StudyModule = lazy(() => import('./components/StudyModule'));
+const SleepModule = lazy(() => import('./components/SleepTracker'));
+const StudyModule = lazy(() => import('./components/StudyTracker'));
 const HealthModule = lazy(() => import('./components/HealthModule'));
 const SettingsModule = lazy(() => import('./components/SettingsModule'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
 const AIAssistant = lazy(() => import('./components/AIAssistant'));
 
+import { settingsAPI } from './services/api';
 import { playSoothingAlarmTone, playInterfaceClick } from './utils/audioEngine';
 
 // Loading Fallback Component
@@ -182,9 +183,9 @@ function App() {
 
   useEffect(() => {
     // Load persisted settings
-    fetch('http://localhost:5001/api/settings')
-      .then(res => res.json())
-      .then(data => {
+    settingsAPI.getSettings()
+      .then(res => {
+        const data = res.data;
         if (data.theme) setTheme(data.theme);
         if (data.hud) setHudSettings(data.hud);
       })
@@ -193,21 +194,15 @@ function App() {
 
   const updateTheme = (newTheme) => {
     setTheme(newTheme);
-    fetch('http://localhost:5001/api/settings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ theme: newTheme })
-    }).catch(err => console.error("Failed to save theme", err));
+    settingsAPI.updateSettings({ theme: newTheme })
+      .catch(err => console.error("Failed to save theme", err));
   };
 
   const updateHudSettings = (newSettings) => {
     const updated = typeof newSettings === 'function' ? newSettings(hudSettings) : newSettings;
     setHudSettings(updated);
-    fetch('http://localhost:5001/api/settings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ hud: updated })
-    }).catch(err => console.error("Failed to save HUD settings", err));
+    settingsAPI.updateSettings({ hud: updated })
+      .catch(err => console.error("Failed to save HUD settings", err));
   };
 
   useEffect(() => {
